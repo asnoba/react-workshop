@@ -1,25 +1,19 @@
 import React from 'react';
+
 import styles from './App.module.css';
 
-const App = () => {
+import TodoForm from './TodoForm';
+import TodoList from './TodoList';
+
+function App() {
   return (
     <div className={styles.container}>
-      <main className={styles.main}>
-        <form>
-          <input type="text" />
-          <button type="submit">Tilføj</button>
-        </form>
-        <ul className={styles.list}>
-          <li>
-            <input type="checkbox" /> Køb mælk
-          </li>
-          <li>
-            <input type="checkbox" /> Slå græs
-          </li>
-        </ul>
-      </main>
+      <div className={styles.main}>
+        <TodoForm />
+        <TodoList />
+      </div>
     </div>
   );
-};
+}
 
 export default App;
