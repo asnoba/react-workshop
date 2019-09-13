@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './TodoItem.module.css';
-import actionTypes from './redux/actionTypes';
+import actionTypes from '../redux/actionTypes';
+import Button from './Button';
 
 const { TOGGLE_TODO, REMOVE_TODO } = actionTypes;
 
@@ -17,18 +17,26 @@ function TodoItem({ id }) {
     dispatch({ type: REMOVE_TODO, payload: { id } });
   };
 
+  const styles = {
+    item: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: '2px',
+    },
+    text: {
+      flex: 1,
+      textDecoration: complete && 'line-through',
+    },
+  };
+
   return (
-    <li key={id} className={styles.item}>
+    <li key={id} style={styles.item}>
       <input type="checkbox" onClick={toggle} defaultChecked={complete} />
-      <div
-        className={styles.text}
-        style={{ textDecoration: complete && 'line-through' }}
-      >
-        {text}
-      </div>
-      <button className="btn btn-sm btn-danger" onClick={remove}>
-        X
-      </button>
+      <div style={styles.text}>{text}</div>
+      <Button size="sm" type="danger" onClick={remove} rounded>
+        &times;
+      </Button>
     </li>
   );
 }

@@ -1,14 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styles from './TodoList.module.css';
 import TodoItem from './TodoItem';
-import { selectTodos } from './redux/selectors/';
+import { todosSelector } from '../redux/selectors/';
 
 function TodoList() {
-  const todos = useSelector(selectTodos);
+  const todos = useSelector(todosSelector);
+
+  const styles = {
+    base: {
+      listStyle: 'none',
+      paddingLeft: 0,
+      fontSize: 14,
+    },
+  };
 
   return (
-    <ul className={styles.list}>
+    <ul style={styles.base}>
       {todos.map(({ id }) => (
         <TodoItem key={id} id={id} />
       ))}

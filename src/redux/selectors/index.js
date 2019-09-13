@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const selectTodos = createSelector(
+const todosSelector = createSelector(
   state => state.todos,
   todos =>
     Object.keys(todos).map(key => ({
@@ -9,4 +9,4 @@ const selectTodos = createSelector(
     })),
 );
 
-export { selectTodos };
+export { todosSelector };

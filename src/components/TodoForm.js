@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import actionTypes from './redux/actionTypes';
+import actionTypes from '../redux/actionTypes';
+import Button from './Button';
+import Input from './Input';
 
 const { ADD_TODO } = actionTypes;
 
@@ -23,11 +25,14 @@ function TodoForm() {
   };
 
   return (
-    <form onSubmit={add}>
-      <input type="text" value={text} onChange={handleChange} />
-      <button type="submit" className="btn">
-        Add
-      </button>
+    <form onSubmit={add} style={{ display: 'flex', width: '100%' }}>
+      <Input
+        type="text"
+        value={text}
+        onChange={handleChange}
+        style={{ flex: 1 }}
+      />
+      <Button>Add</Button>
     </form>
   );
 }
