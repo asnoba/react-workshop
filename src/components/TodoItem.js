@@ -6,7 +6,7 @@ import Button from './Button';
 const { TOGGLE_TODO, REMOVE_TODO } = actionTypes;
 
 function TodoItem({ id }) {
-  const { text, complete } = useSelector(state => state.todos[id]);
+  const { text, done } = useSelector(state => state.todos[id]);
   const dispatch = useDispatch();
 
   const toggle = () => {
@@ -26,13 +26,13 @@ function TodoItem({ id }) {
     },
     text: {
       flex: 1,
-      textDecoration: complete && 'line-through',
+      textDecoration: done && 'line-through',
     },
   };
 
   return (
     <li key={id} style={styles.item}>
-      <input type="checkbox" onClick={toggle} defaultChecked={complete} />
+      <input type="checkbox" onClick={toggle} defaultChecked={done} />
       <div style={styles.text}>{text}</div>
       <Button size="sm" type="danger" onClick={remove} rounded>
         &times;

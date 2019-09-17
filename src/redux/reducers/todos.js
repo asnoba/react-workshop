@@ -1,4 +1,5 @@
 import shortid from 'shortid';
+import produce from 'immer';
 
 import actionTypes from '../actionTypes';
 
@@ -8,51 +9,40 @@ const initialState = {
   iGC40ZPQu: {
     id: 'iGC40ZPQu',
     text: 'Køb mælk',
-    complete: false,
+    done: false,
   },
   eNP82iQ2V: {
     id: 'eNP82iQ2V',
     text: 'Slå græs',
-    complete: false,
+    done: false,
   },
 };
 
-function todos(state = initialState, action) {
-  switch (action.type) {
+const todos = produce((draft, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
     case ADD_TODO: {
-      const { text } = action.payload;
       const id = shortid.generate();
-      return {
-        ...state,
-        [id]: {
-          id,
-          text,
-          complete: false,
-        },
+      draft[id] = {
+        id,
+        text: payload.text,
+        done: false,
       };
+      break;
     }
 
-    case REMOVE_TODO: {
-      const { id } = action.payload;
-      const newState = { ...state };
-      delete newState[id];
-      return newState;
-    }
+    case REMOVE_TODO:
+      delete draft[payload.id];
+      break;
 
-    case TOGGLE_TODO: {
-      const { id } = action.payload;
-      return {
-        ...state,
-        [id]: {
-          ...state[id],
-          complete: !state[id].complete,
-        },
-      };
-    }
+    case TOGGLE_TODO:
+      draft[payload.id].done = !draft[payload.id].done;
+      break;
 
     default:
-      return state;
+      return initialState;
   }
-}
+});
 
 export default todos;
